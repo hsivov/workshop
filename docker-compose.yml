@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  frontend:
+    container_name: frontend
+    image: hsivov/frontend
+    ports:
+      - 3000:3000
+    networks:
+      - react-express
+
+  backend:
+    container_name: backend
+    image: hsivov/backend
+    networks:
+      - react-express
+      - express-mongo
+
+  mongo:
+    container_name: mongo-db
+    image: mongo
+    volumes:
+      - data:/data/db
+    networks:
+      - express-mongo
+
+networks:
+  react-express:
+    external: true
+  express-mongo:
+    external: true
+
+volumes:
+  data:
+    external: true
